@@ -1,6 +1,6 @@
 package com.zurimokato.ms_product.infrastructure.adapter.out.database;
 
-import com.zurimokato.ms_product.application.port.out.PersistenceOutPutPort;
+import com.zurimokato.ms_product.application.port.out.ProductOutputPort;
 import com.zurimokato.ms_product.domain.model.Product;
 import com.zurimokato.ms_product.infrastructure.adapter.out.database.mappers.ProductEntityMapper;
 import com.zurimokato.ms_product.infrastructure.adapter.out.database.repositories.ProductRepository;
@@ -9,9 +9,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+
 @Component
 @RequiredArgsConstructor
-public class ProductPersistenceAdapter implements PersistenceOutPutPort {
+public class ProductPersistenceAdapter implements ProductOutputPort {
     private final ProductRepository productRepository;
     private final ProductEntityMapper productEntityMapper;
 
@@ -32,17 +33,16 @@ public class ProductPersistenceAdapter implements PersistenceOutPutPort {
     }
 
     @Override
-    public Product findByName(String name) {
-        return productEntityMapper.toModel(
-                productRepository.findByName(name)
-                        .orElseThrow(
-                                () -> new RuntimeException("Product not found")
-                        )
-        );
+    public Page<Product> findByName(String name, Pageable pageable) {
+        return
+                productRepository.findByName(name, pageable).map(productEntityMapper::toModel);
+
     }
 
     @Override
     public Page<Product> findAll(Pageable pageable, Product criteria) {
-        return null;
+        return productRepository.findAll(pageable).map(productEntityMapper::toModel);
     }
+
+
 }

@@ -1,30 +1,26 @@
-package com.zurimokato.ms_product.infrastructure.adapter.out.database.entities;
+package com.zurimokato.ms_product.infrastructure.adapter.in.controller.request;
 
 import com.zurimokato.ms_product.domain.enums.ProductStatus;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-@Document("products")
 @Getter
 @Setter
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductEntity implements Serializable {
-    @Id
-    private String id;
+public class ProductRequest implements Serializable {
+
     private String name;
     private String description;
     private Double price;
-    private Long stock;
     private List<String> images;
+    private Long stock;
     private ProductStatus status;
-
-
 }

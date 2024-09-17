@@ -4,6 +4,7 @@ import com.zurimokato.ms_product.domain.enums.ProductStatus;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serial;
@@ -16,6 +17,7 @@ import java.util.List;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
+@TypeAlias("product")
 public class ProductEntity implements Serializable {
     @Id
     private String id;
@@ -24,6 +26,7 @@ public class ProductEntity implements Serializable {
     private Double price;
     private Long stock;
     private List<String> images;
+    private String type;
     private ProductStatus status;
 
 

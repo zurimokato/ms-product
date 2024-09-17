@@ -13,6 +13,7 @@ public class GenericResponse {
     private String code;
     private Object data;
     private HttpStatus httpStatus;
+    private PageResponse pageResponse;
 
     public static GenericResponse success() {
         return GenericResponse.builder()

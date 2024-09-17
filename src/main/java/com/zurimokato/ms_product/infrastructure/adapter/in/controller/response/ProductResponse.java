@@ -27,4 +27,6 @@ public class ProductResponse implements Serializable {
     private List<String> images;
     private Long stock;
     private ProductStatus status;
+    private String type;
+
 }

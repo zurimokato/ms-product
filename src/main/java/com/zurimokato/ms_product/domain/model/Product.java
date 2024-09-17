@@ -25,6 +25,7 @@ public class Product implements Serializable {
     private Double price;
     private List<String> images;
     private Long stock;
+    private String type;
     private ProductStatus status;
 
 }

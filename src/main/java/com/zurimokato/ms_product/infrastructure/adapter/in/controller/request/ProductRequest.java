@@ -19,10 +19,10 @@ import java.util.List;
 @NoArgsConstructor
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = TShirtRequest.class, name = "tshirt")
+        @JsonSubTypes.Type(value = TShirtRequest.class, name = "tshirt"),
+        @JsonSubTypes.Type(value = BookRequest.class, name = "book")
 })
 public class ProductRequest implements Serializable {
 

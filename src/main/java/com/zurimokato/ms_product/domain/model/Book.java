@@ -8,5 +8,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Books extends Product {
+public class Book extends Product {
+    private String author;
+    private String publisher;
+    private String isbn;
+    private String title;
+
 }

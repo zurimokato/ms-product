@@ -26,7 +26,7 @@ import java.util.List;
         @JsonSubTypes.Type(value = BookRequest.class, name = "book")
 })
 public class ProductRequest implements Serializable {
-
+    private String id;
     @Schema(name = "name", description = "Product's name", example="Cien años de soledad")
     private String name;
     @Schema(name = "description", description = "Product's description", example="libro de 100 años de soledad escrito por" +

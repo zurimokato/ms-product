@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 @Builder
 public class PageResponse {
-    private int page;
     private int size;
     private int totalPages;
     private int totalElements;

@@ -10,6 +10,7 @@ import com.zurimokato.ms_product.infrastructure.adapter.in.controller.response.P
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ public class ProductController implements ProductPort {
     private final ProductApiRestMapper productAPIMapper;
 
     @Override
+    @Cacheable(cacheNames = "product")
     public ResponseEntity<GenericResponse> getProducts(Pageable pageable) {
         Page<ProductResponse> page = findProductUseCase.findAllProducts(null, pageable).map(productAPIMapper::toResponse);
         GenericResponse genericResponse = GenericResponse.success();
@@ -37,6 +39,7 @@ public class ProductController implements ProductPort {
 
 
     @Override
+    @Cacheable(value = "product", key = "#id")
     public ResponseEntity<GenericResponse> getProduct(String id) {
         ProductResponse response = productAPIMapper.toResponse(findProductUseCase.findProduct(id));
         GenericResponse genericResponse = GenericResponse.success();

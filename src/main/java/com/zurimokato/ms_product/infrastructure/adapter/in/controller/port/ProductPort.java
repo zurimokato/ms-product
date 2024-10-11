@@ -19,15 +19,14 @@ public interface ProductPort {
             @ApiResponse(responseCode = "200",description = "OK"),
             @ApiResponse(responseCode = "400", description = "Product not found")
     })
-
-    ResponseEntity<GenericResponse> getProducts(Pageable pageable);
+    GenericResponse getProducts(Pageable pageable);
     @GetMapping("/{id}")
     @Operation(summary = "Get a Product by id", description = "Get a only Product as per id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "OK"),
             @ApiResponse(responseCode = "400", description = "Product not found")
     })
-    ResponseEntity<GenericResponse> getProduct(@PathVariable @Parameter(name = "id", description = "Product id",
+    GenericResponse getProduct(@PathVariable @Parameter(name = "id", description = "Product id",
                                                 example = "1") String id);
 
     @PostMapping
@@ -36,10 +35,10 @@ public interface ProductPort {
             @ApiResponse(responseCode = "200",description = "OK"),
             @ApiResponse(responseCode = "500", description = "Product not created")
     })
-    ResponseEntity<GenericResponse> createProduct( @RequestBody ProductRequest productRequest);
+    GenericResponse createProduct( @RequestBody ProductRequest productRequest);
 
 
     @PutMapping
-    ResponseEntity<GenericResponse> updateProduct(@RequestBody ProductRequest productRequest);
+    GenericResponse updateProduct(@RequestBody ProductRequest productRequest);
 
 }

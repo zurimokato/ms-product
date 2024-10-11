@@ -1,17 +1,19 @@
 package com.zurimokato.ms_product.infrastructure.adapter.in.controller.response;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.http.HttpStatus;
+
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Builder
-public class GenericResponse {
+@AllArgsConstructor
+@NoArgsConstructor
+public class GenericResponse implements Serializable {
     private String message;
     private String code;
-    private Object data;
+    private transient Object data;
     private HttpStatus httpStatus;
     private PageResponse pageResponse;
 

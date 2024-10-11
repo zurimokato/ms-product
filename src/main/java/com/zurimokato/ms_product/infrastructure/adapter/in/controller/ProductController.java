@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,41 +27,39 @@ public class ProductController implements ProductPort {
     private final ProductApiRestMapper productAPIMapper;
 
     @Override
-    @Cacheable(cacheNames = "product")
-    public ResponseEntity<GenericResponse> getProducts(Pageable pageable) {
+    @Cacheable(cacheNames = "products")
+    public GenericResponse getProducts(Pageable pageable) {
         Page<ProductResponse> page = findProductUseCase.findAllProducts(null, pageable).map(productAPIMapper::toResponse);
         GenericResponse genericResponse = GenericResponse.success();
         genericResponse.setData(page.getContent());
         genericResponse.setPageResponse(productAPIMapper.toPageResponse(page));
-        return ResponseEntity.ok(genericResponse);
+        return genericResponse;
     }
 
 
     @Override
     @Cacheable(value = "product", key = "#id")
-    public ResponseEntity<GenericResponse> getProduct(String id) {
+    public GenericResponse getProduct(String id) {
         ProductResponse response = productAPIMapper.toResponse(findProductUseCase.findProduct(id));
         GenericResponse genericResponse = GenericResponse.success();
         genericResponse.setData(response);
-        return ResponseEntity.ok(genericResponse);
+        return genericResponse;
     }
 
-    public ResponseEntity<GenericResponse> createProduct(ProductRequest productRequest) {
+    public GenericResponse createProduct(ProductRequest productRequest) {
         ProductResponse response = productAPIMapper.toResponse(saveProductUseCase.createProduct(
                 productAPIMapper.toModel(productRequest)
         ));
         log.info("product created response: {}", response);
-        GenericResponse genericResponse = GenericResponse.success();
-        return ResponseEntity.ok(genericResponse);
+        return GenericResponse.success();
     }
 
     @Override
-    public ResponseEntity<GenericResponse> updateProduct(ProductRequest productRequest) {
+    public GenericResponse updateProduct(ProductRequest productRequest) {
         ProductResponse response = productAPIMapper.toResponse(saveProductUseCase.updateProduct(
                 productAPIMapper.toModel(productRequest)
         ));
         log.info("product updated response: {}", response);
-        GenericResponse genericResponse = GenericResponse.success();
-        return ResponseEntity.ok(genericResponse);
+        return GenericResponse.success();
     }
 }
